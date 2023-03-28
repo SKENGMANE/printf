@@ -15,18 +15,20 @@ int PrintFormat(const char *formattype, int *ind, va_list list, char buffer[],
 	int flags, int width, int precision, int size)
 {
 	int i, unknow_len = 0, printed_chars = -1;
-	formattype_t formattype_types[] = {
+	formattype_t ftype_types[] = {
 		{'c', PrintChar}, {'s', PrintString}, {'%', PrintPercent},
 		{'i', PrintInt}, {'d', PrintInt}, {'b', PrintBinary},
 		{'u', PrintUnsigned}, {'o', PrintOctal}, {'x', PrintHexaDecimal},
 		{'X', PrintHexaUpper}, {'p', PrintPointer}, {'S', PrintNotPrintable},
-		{'r', PrintReverse}, {'R', PrintRotlString}, {'\0', NULL}
-	};
-	for (i = 0; formattype_types[i].formattype != '\0'; i++)
-		if (formattype[*ind] == formattype_types[i].formattype)
-			return (formattype_types[i].fn(list, buffer, flags, width, precision, size));
-
-	if (formattype_types[i].formattype == '\0')
+		{'r', PrintReverse}, {'R', PrintRotlString}, {'\0', NULL}};
+	for (i = 0; ftype_types[i].formattype != '\0'; i++)
+	{
+		if (formattype[*ind] == ftype_types[i].formattype)
+		{
+			return (ftype_types[i].fn(list, buffer, flags, width, precision, size));
+		}
+	}
+	if (ftype_types[i].formattype == '\0')
 	{
 		if (formattype[*ind] == '\0')
 			return (-1);
@@ -47,4 +49,3 @@ int PrintFormat(const char *formattype, int *ind, va_list list, char buffer[],
 	}
 	return (printed_chars);
 }
-

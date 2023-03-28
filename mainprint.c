@@ -17,9 +17,7 @@ int _printf(const char *format, ...)
 
 	if (format == NULL)
 		return (-1);
-
 	va_start(list, format);
-
 	for (i = 0; format && format[i] != '\0'; i++)
 	{
 		if (format[i] == '%')
@@ -35,22 +33,17 @@ int _printf(const char *format, ...)
 			if (CharPrinted == -1)
 				return (-1);
 			PrintValue += CharPrinted;
-			
 		}
 		else
 		{
 			buffer[indexItem++] = format[i];
 			if (indexItem == SIZEBUFFER)
 				printvalues(buffer, &indexItem);
-			/* write(1, &format[i], 1);*/
 			PrintValue++;
 		}
 	}
-
 	printvalues(buffer, &indexItem);
-
 	va_end(list);
-
 	return (PrintValue);
 }
 
@@ -66,5 +59,3 @@ void printvalues(char buffer[], int *indexItem)
 
 	*indexItem = 0;
 }
-
-
